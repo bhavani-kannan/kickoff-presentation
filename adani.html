@@ -18,14 +18,21 @@
       --p2:#EAF7F0;
       --p3:#FFF5E6;
       --p4:#F2ECFF;
-      --p5:#FDECF1;
+
+      /* CHANGED: remove pink/red from Stage 5 */
+      --p5:#EAF2FF; /* light blue */
 
       --b0:#94a3b8;
       --b1:#60a5fa;
-      --b2:#34d399;
-      --b3:#fbbf24;
+      --b2:#34d399; /* Delivered */
+      --b3:#fbbf24; /* In Progress */
       --b4:#a78bfa;
-      --b5:#fb7185;
+
+      /* CHANGED: remove pink/red from Stage 5 border */
+      --b5:#3b82f6; /* blue */
+
+      /* NEW: Roadmap blue (more prominent than grey on white) */
+      --bR:#2563eb;
 
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
@@ -202,7 +209,9 @@
     .stage.s2{ background: var(--p2); border-color: rgba(52,211,153,.55); }
     .stage.s3{ background: var(--p3); border-color: rgba(251,191,36,.60); }
     .stage.s4{ background: var(--p4); border-color: rgba(167,139,250,.55); }
-    .stage.s5{ background: var(--p5); border-color: rgba(251,113,133,.55); }
+
+    /* CHANGED: Stage 5 is now light blue, not pink/red */
+    .stage.s5{ background: var(--p5); border-color: rgba(37,99,235,.45); }
 
     .stage-head{
       display:flex;
@@ -240,7 +249,7 @@
       flex: 0 0 auto;
     }
 
-    /* Delivered vs roadmap badges */
+    /* Delivered vs status badges */
     .badge-row{
       display:flex;
       gap:8px;
@@ -260,8 +269,23 @@
       color: var(--muted2);
       white-space: nowrap;
     }
-    .dotg{ width:8px;height:8px;border-radius:999px;background: var(--b2); box-shadow: 0 0 0 3px rgba(52,211,153,.14); }
-    .dotb{ width:8px;height:8px;border-radius:999px;background: var(--b3); box-shadow: 0 0 0 3px rgba(251,191,36,.16); }
+
+    /* CHANGED: three legend dots */
+    .dotg{
+      width:8px;height:8px;border-radius:999px;
+      background: var(--b2);
+      box-shadow: 0 0 0 3px rgba(52,211,153,.14);
+    }
+    .doty{
+      width:8px;height:8px;border-radius:999px;
+      background: var(--b3);
+      box-shadow: 0 0 0 3px rgba(251,191,36,.16);
+    }
+    .dotr{
+      width:8px;height:8px;border-radius:999px;
+      background: var(--bR);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.16);
+    }
 
     /* Stage 0 band */
     .stage0{
@@ -368,7 +392,10 @@
     .obox.s2{ border-color: var(--b2); }
     .obox.s3{ border-color: var(--b3); }
     .obox.s4{ border-color: var(--b4); }
+
+    /* CHANGED: Stage 5 outcome border no longer pink/red */
     .obox.s5{ border-color: var(--b5); }
+
     .obox h4{
       margin:0;
       font-size: 12.2px;
@@ -381,11 +408,11 @@
       font-size: 12px;
       line-height: 1.3;
     }
-	
-	/* ROI row formatting */
-	.roi .obox ul{ margin-top: 8px; }
-	.roi .obox li{ font-size: 11.8px; line-height: 1.25; }
-	.roi .ibox-note{ margin-top: 6px; font-size: 11px; color: var(--muted2); font-family: var(--mono); }	
+
+    /* ROI row formatting */
+    .roi .obox ul{ margin-top: 8px; }
+    .roi .obox li{ font-size: 11.8px; line-height: 1.25; }
+    .roi .ibox-note{ margin-top: 6px; font-size: 11px; color: var(--muted2); font-family: var(--mono); }
 
     /* What changed section (below outcomes) */
     .section{
@@ -525,9 +552,12 @@
         <div class="sub">
           Clean mapping to the Decision Intelligence Roadmap (assessment first, then delivery by stage with outcomes and impact).
         </div>
+
+        <!-- CHANGED: 3-item legend -->
         <div class="badge-row" aria-label="Legend">
-          <span class="badge"><span class="dotg"></span>Delivered / live</span>
-          <span class="badge"><span class="dotb"></span>Roadmap / next</span>
+          <span class="badge"><span class="dotg"></span>Delivered</span>
+          <span class="badge"><span class="doty"></span>In Progress</span>
+          <span class="badge"><span class="dotr"></span>Roadmap</span>
         </div>
       </div>
 
@@ -571,7 +601,7 @@
           </div>
         </section>
 
-        <!-- STAGES (SPACED LIKE INDEX) -->
+        <!-- STAGES -->
         <div class="cols" aria-label="Five stages">
 
           <article class="stage s1">
@@ -614,13 +644,14 @@
             </ul>
           </article>
 
+          <!-- CHANGED: Stage 3 uses yellow doty for In Progress -->
           <article class="stage s3">
             <div class="stage-head">
               <div>
                 <h3>Stage 3: Predictive Planning</h3>
                 <div class="tagline">Foresight built into planning</div>
                 <div class="badge-row">
-                  <span class="badge"><span class="dotb"></span>In Progress</span>
+                  <span class="badge"><span class="doty"></span>In Progress</span>
                 </div>
               </div>
               <div class="num">3</div>
@@ -634,13 +665,14 @@
             </ul>
           </article>
 
+          <!-- CHANGED: Stage 4 uses blue dotr for Roadmap -->
           <article class="stage s4">
             <div class="stage-head">
               <div>
                 <h3>Stage 4: Prescriptive Decisions</h3>
                 <div class="tagline">Optimization and decision automation</div>
                 <div class="badge-row">
-                  <span class="badge"><span class="dotb"></span>Roadmap</span>
+                  <span class="badge"><span class="dotr"></span>Roadmap</span>
                 </div>
               </div>
               <div class="num">4</div>
@@ -654,13 +686,14 @@
             </ul>
           </article>
 
+          <!-- CHANGED: Stage 5 uses blue dotr for Roadmap + no pink/red palette -->
           <article class="stage s5">
             <div class="stage-head">
               <div>
                 <h3>Stage 5: Controlled Autonomy</h3>
                 <div class="tagline">Execute with guardrails</div>
                 <div class="badge-row">
-                  <span class="badge"><span class="dotb"></span>Roadmap</span>
+                  <span class="badge"><span class="dotr"></span>Roadmap</span>
                 </div>
               </div>
               <div class="num">5</div>
@@ -676,7 +709,7 @@
 
         </div>
 
-        <!-- OUTCOMES BY STAGE (ALIGNED) -->
+        <!-- OUTCOMES -->
         <section class="outcome" aria-label="Outcomes by stage">
           <div class="outcome-top">
             <div class="title">Outcomes by stage</div>
@@ -706,130 +739,128 @@
             </div>
           </div>
         </section>
-		
-	<!-- ROI BY STAGE (ADANI) -->
 
-	<section class="outcome roi" aria-label="ROI by stage for Adani">
-	  <div class="outcome-top">
-		<div class="title">ROI / Business value by stage</div>
-		<div class="desc">Delivered impact (Stages 1–2) + roadmap value (Stages 3–5)</div>
-	  </div>
+        <!-- ROI BY STAGE (ADANI) -->
+        <section class="outcome roi" aria-label="ROI by stage for Adani">
+          <div class="outcome-top">
+            <div class="title">ROI / Business value by stage</div>
+            <div class="desc">Delivered impact (Stages 1–2) + roadmap value (Stages 3–5)</div>
+          </div>
 
-	  <!-- Executive framing (no inflated % claims) -->
-	  <div style="padding:10px 12px; border-bottom:1px solid var(--line); background: rgba(255,255,255,.9);">
-		<div style="font-weight: 900; font-size: 12.3px; letter-spacing:-0.01em;">
-		  Executive impact summary
-		</div>
-		<ul style="margin-top:8px;">
-		  <li><span class="dot"></span>
-			<span><b>Speed:</b> 6-week time-to-value to establish an enterprise control layer</span>
-		  </li>
-		  <li><span class="dot"></span>
-			<span><b>Efficiency:</b> ~$1M realized labor & infrastructure savings with reporting automation</span>
-		  </li>
-		  <li><span class="dot"></span>
-			<span><b>Control:</b> Standardized KPIs (SACC, NSP, EBITDA) to reduce metric disputes and drive action-oriented reviews</span>
-		  </li>
-		  <li><span class="dot"></span>
-			<span><b>Roadmap focus:</b> Predictability, cost optimization, and controlled autonomy (exception-based management)</span>
-		  </li>
-		</ul>
-	  </div>
+          <div style="padding:10px 12px; border-bottom:1px solid var(--line); background: rgba(255,255,255,.9);">
+            <div style="font-weight: 900; font-size: 12.3px; letter-spacing:-0.01em;">
+              Executive impact summary
+            </div>
+            <ul style="margin-top:8px;">
+              <li><span class="dot"></span>
+                <span><b>Speed:</b> 6-week time-to-value to establish an enterprise control layer</span>
+              </li>
+              <li><span class="dot"></span>
+                <span><b>Efficiency:</b> ~$1M realized labor & infrastructure savings with reporting automation</span>
+              </li>
+              <li><span class="dot"></span>
+                <span><b>Control:</b> Standardized KPIs (SACC, NSP, EBITDA) to reduce metric disputes and drive action-oriented reviews</span>
+              </li>
+              <li><span class="dot"></span>
+                <span><b>Roadmap focus:</b> Predictability, cost optimization, and controlled autonomy (exception-based management)</span>
+              </li>
+            </ul>
+          </div>
 
-	  <div class="cols" style="padding:10px;">
+          <div class="cols" style="padding:10px;">
 
-		<div class="obox s1">
-		  <h4>Stage 1 ROI</h4>
-		  <ul>
-			<li><span class="dot"></span>
-			  <span>Created a single source of truth across plants, reducing reconciliation cycles and reporting friction</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Improved decision confidence through centralized controls, access governance, and auditability</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Enabled scalable rollout of new dashboards and use cases without duplicating infrastructure per plant</span>
-			</li>
-		  </ul>
-		  <div class="ibox-note">(Delivered)</div>
-		</div>
+            <div class="obox s1">
+              <h4>Stage 1 ROI</h4>
+              <ul>
+                <li><span class="dot"></span>
+                  <span>Created a single source of truth across plants, reducing reconciliation cycles and reporting friction</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Improved decision confidence through centralized controls, access governance, and auditability</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Enabled scalable rollout of new dashboards and use cases without duplicating infrastructure per plant</span>
+                </li>
+              </ul>
+              <div class="ibox-note">(Delivered)</div>
+            </div>
 
-		<div class="obox s2">
-		  <h4>Stage 2 ROI</h4>
-		  <ul>
-			<li><span class="dot"></span>
-			  <span>Compressed reporting cycle time by <b>~95%</b>, enabling faster performance correction</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Reduced manual intervention by <b>~30%</b>, freeing operational bandwidth for higher-value work</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Delivered <b>~$1M</b> labor & infrastructure efficiencies through automation and standardization</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Shifted leadership reviews from data reconciliation to performance action</span>
-			</li>
-		  </ul>
-		  <div class="ibox-note">(Delivered)</div>
-		</div>
+            <div class="obox s2">
+              <h4>Stage 2 ROI</h4>
+              <ul>
+                <li><span class="dot"></span>
+                  <span>Compressed reporting cycle time by <b>~95%</b>, enabling faster performance correction</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Reduced manual intervention by <b>~30%</b>, freeing operational bandwidth for higher-value work</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Delivered <b>~$1M</b> labor & infrastructure efficiencies through automation and standardization</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Shifted leadership reviews from data reconciliation to performance action</span>
+                </li>
+              </ul>
+              <div class="ibox-note">(Delivered)</div>
+            </div>
 
-		<div class="obox s3">
-		  <h4>Stage 3 ROI</h4>
-		  <ul>
-			<li><span class="dot"></span>
-			  <span>Earlier demand and supply risk signals to reduce planning surprises and protect revenue and margin</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Scenario-based S&amp;OP decisions with explainable drivers (why / what-if) to improve alignment and speed</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Strengthened planning discipline via forecast tracking, override governance, and drift monitoring</span>
-			</li>
-		  </ul>
-		  <div class="ibox-note">(Roadmap)</div>
-		</div>
+            <div class="obox s3">
+              <h4>Stage 3 ROI</h4>
+              <ul>
+                <li><span class="dot"></span>
+                  <span>Earlier demand and supply risk signals to reduce planning surprises and protect revenue and margin</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Scenario-based S&amp;OP decisions with explainable drivers (why / what-if) to improve alignment and speed</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Strengthened planning discipline via forecast tracking, override governance, and drift monitoring</span>
+                </li>
+              </ul>
+              <div class="ibox-note">(Roadmap)</div>
+            </div>
 
-		<div class="obox s4">
-		  <h4>Stage 4 ROI</h4>
-		  <ul>
-			<li><span class="dot"></span>
-			  <span>Direct cost reduction by optimizing logistics routes, inventory positioning, and constraint-aware plans</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Maximize contribution margin per ton by allocating constrained capacity to the most profitable segments.</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Faster execution by embedding optimization recommendations directly into operational workflows</span>
-			</li>
-		  </ul>
-		  <div class="ibox-note">(Roadmap)</div>
-		</div>
+            <div class="obox s4">
+              <h4>Stage 4 ROI</h4>
+              <ul>
+                <li><span class="dot"></span>
+                  <span>Direct cost reduction by optimizing logistics routes, inventory positioning, and constraint-aware plans</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Maximize contribution margin per ton by allocating constrained capacity to the most profitable segments.</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Faster execution by embedding optimization recommendations directly into operational workflows</span>
+                </li>
+              </ul>
+              <div class="ibox-note">(Roadmap)</div>
+            </div>
 
-		<div class="obox s5">
-		  <h4>Stage 5 ROI</h4>
-		  <ul>
-			<li><span class="dot"></span>
-			  <span>Shift to exception-based management to scale execution without linear headcount growth</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Safer automation of low-risk decisions using clear guardrails, escalation paths, and human oversight</span>
-			</li>
-			<li><span class="dot"></span>
-			  <span>Lower enterprise risk exposure through traceability, audit logs, and continuous outcome monitoring</span>
-			</li>
-		  </ul>
-		  <div class="ibox-note">(Roadmap)</div>
-		</div>
+            <div class="obox s5">
+              <h4>Stage 5 ROI</h4>
+              <ul>
+                <li><span class="dot"></span>
+                  <span>Shift to exception-based management to scale execution without linear headcount growth</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Safer automation of low-risk decisions using clear guardrails, escalation paths, and human oversight</span>
+                </li>
+                <li><span class="dot"></span>
+                  <span>Lower enterprise risk exposure through traceability, audit logs, and continuous outcome monitoring</span>
+                </li>
+              </ul>
+              <div class="ibox-note">(Roadmap)</div>
+            </div>
 
-	  </div>
+          </div>
 
-	  <div class="note" style="padding: 0 12px 10px;">
-		Financial impact is baseline-dependent and should be quantified through a short value discovery exercise 
-		(current-state baselines + sensitivity scenarios) before committing to targets.
-	  </div>
-	</section>
+          <div class="note" style="padding: 0 12px 10px;">
+            Financial impact is baseline-dependent and should be quantified through a short value discovery exercise
+            (current-state baselines + sensitivity scenarios) before committing to targets.
+          </div>
+        </section>
 
-        <!-- WHAT CHANGED (MOVE BELOW OUTCOMES) -->
+        <!-- WHAT CHANGED -->
         <section class="section" aria-label="What changed">
           <div class="section-top">
             <div class="title">What changed</div>
