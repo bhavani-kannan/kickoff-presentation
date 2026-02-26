@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Decision Intelligence Roadmap</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --ink:#0f172a;
+      --muted:#475569;
+      --muted2:#64748b;
+
+      --line:#e2e8f0;
+      --line2:#cbd5e1;
+
+      /* Pastel, web-safe leaning palette */
+      --p1:#E8F4FD;  /* light blue */
+      --p2:#EAF7F0;  /* light green */
+      --p3:#FFF5E6;  /* light amber */
+      --p4:#F2ECFF;  /* light purple */
+      --p5:#FDECF1;  /* light pink */
+
+      /* Stronger borders per stage */
+      --b1:#60a5fa;
+      --b2:#34d399;
+      --b3:#fbbf24;
+      --b4:#a78bfa;
+      --b5:#fb7185;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      background: #f8fafc;
+      font-family: var(--sans);
+      color: var(--ink);
+    }
+
+    .wrap{
+      max-width: 1320px;
+      margin: 18px auto 28px;
+      padding: 0 14px;
+    }
+
+    .header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom: 10px;
+    }
+    h1{
+      margin:0;
+      font-size: 22px;
+      letter-spacing:-0.02em;
+    }
+    .sub{
+      margin-top: 6px;
+      max-width: 900px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .chip{
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted2);
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 7px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink);
+      text-decoration:none;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      padding: 7px 10px;
+      border-radius: 999px;
+      box-shadow: 0 1px 0 rgba(15,23,42,.03);
+      white-space: nowrap;
+    }
+    .btn:hover{
+      border-color: var(--line2);
+      transform: translateY(-1px);
+    }
+
+    /* Slide shell */
+    .slide{
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slide::before{
+      content:"";
+      position:absolute;
+      inset:-80px -120px auto auto;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle at 30% 30%, rgba(96,165,250,.35), rgba(167,139,250,.25), rgba(251,113,133,.18), transparent 70%);
+      filter: blur(2px);
+      opacity: 0.65;
+      pointer-events:none;
+    }
+
+    .top-strip{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(248,250,252,.85), rgba(255,255,255,.9));
+    }
+    .kicker{
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted2);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .path{
+      font-size: 12px;
+      color: var(--muted);
+      text-align:right;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      max-width: 900px;
+    }
+
+    /* Grid regions */
+    .grid{
+      display:grid;
+      grid-template-rows: auto auto auto;
+      gap: 12px;
+      padding: 12px;
+    }
+
+	/* Stage 0 cross-stage assessment band */
+	.stage0{
+	  border-radius: 14px;
+	  border: 1px dashed rgba(15,23,42,.25);
+	  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,250,252,.92));
+	  padding: 10px 12px;
+	  position: relative;
+	  overflow:hidden;
+	}
+
+	.stage0::before{
+	  content:"";
+	  position:absolute;
+	  inset:-60px auto auto -60px;
+	  width: 240px;
+	  height: 240px;
+	  border-radius: 999px;
+	  background: radial-gradient(circle at 35% 35%, rgba(96,165,250,.18), rgba(52,211,153,.14), rgba(251,191,36,.10), transparent 70%);
+	  pointer-events:none;
+	}
+
+	.stage0-head{
+	  display:flex;
+	  align-items:flex-start;
+	  justify-content:space-between;
+	  gap:10px;
+	  margin-bottom: 6px;
+	}
+
+	.stage0 h3{
+	  margin:0;
+	  font-size: 13px;
+	  font-weight: 900;
+	  letter-spacing:-0.01em;
+	  line-height:1.2;
+	}
+
+	.stage0 .tagline{
+	  margin-top: 4px;
+	  font-size: 12px;
+	  color: var(--muted);
+	  line-height:1.2;
+	}
+
+	.stage0 .num{
+	  min-width: 28px;
+	  height: 28px;
+	  border-radius: 999px;
+	  display:flex;
+	  align-items:center;
+	  justify-content:center;
+	  font-family: var(--mono);
+	  font-size: 12px;
+	  font-weight: 900;
+	  background: rgba(15,23,42,.06);
+	  border: 1px solid rgba(15,23,42,.12);
+	  color: rgba(15,23,42,.85);
+	  flex: 0 0 auto;
+	}
+
+	.stage0-grid{
+	  display:grid;
+	  grid-template-columns: repeat(5, minmax(0, 1fr));
+	  gap: 10px;
+	  margin-top: 8px;
+	}
+
+	.stage0-pill{
+	  display:flex;
+	  align-items:center;
+	  justify-content:center;
+	  text-align:center;
+	  padding: 8px 10px;
+	  border-radius: 999px;
+	  border: 1px solid rgba(203,213,225,.85);
+	  background: rgba(255,255,255,.85);
+	  font-size: 11.5px;
+	  color: rgba(15,23,42,.85);
+	  line-height:1.15;
+	  white-space: nowrap;
+	}
+
+	@media (max-width: 1180px){
+	  .stage0-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	  .stage0-pill{ white-space: normal; }
+	}
+
+    /* Stage cards row */
+    .cols{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stage{
+      border-radius: 14px;
+      border: 1px solid var(--line2);
+      padding: 10px 10px 10px;
+      position: relative;
+      min-height: 252px;
+      overflow:hidden;
+      background: #fff;
+    }
+
+    .stage.s1{ background: var(--p1); border-color: rgba(96,165,250,.55); }
+    .stage.s2{ background: var(--p2); border-color: rgba(52,211,153,.55); }
+    .stage.s3{ background: var(--p3); border-color: rgba(251,191,36,.60); }
+    .stage.s4{ background: var(--p4); border-color: rgba(167,139,250,.55); }
+    .stage.s5{ background: var(--p5); border-color: rgba(251,113,133,.55); }
+
+    .stage::after{
+      content:"";
+      position:absolute;
+      left:-40px; top:-40px;
+      width: 120px; height:120px;
+      border-radius: 999px;
+      opacity:.45;
+      background: rgba(255,255,255,.6);
+      filter: blur(0px);
+    }
+
+    .stage-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 8px;
+    }
+    .stage h3{
+      margin:0;
+      font-size: 12.8px;
+      font-weight: 850;
+      letter-spacing:-0.01em;
+      line-height:1.2;
+    }
+    .tagline{
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height:1.2;
+    }
+    .num{
+      min-width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 800;
+      background: rgba(255,255,255,.7);
+      border: 1px solid rgba(15,23,42,.12);
+      color: rgba(15,23,42,.85);
+      flex: 0 0 auto;
+    }
+
+    ul{
+      list-style:none;
+      padding:0;
+      margin: 6px 0 0;
+      display:flex;
+      flex-direction:column;
+      gap: 7px;
+    }
+    li{
+      display:flex;
+      gap: 8px;
+      align-items:flex-start;
+      font-size: 12px;
+      color: rgba(15,23,42,.92);
+      line-height: 1.25;
+    }
+    .dot{
+      width: 7px; height:7px;
+      border-radius: 999px;
+      margin-top: 4px;
+      flex: 0 0 auto;
+      background: rgba(15,23,42,.45);
+      box-shadow: 0 0 0 3px rgba(255,255,255,.5);
+    }
+
+    /* Cross-cutting bands */
+    .cross{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      overflow:hidden;
+    }
+    .cross-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,9);
+    }
+    .cross-top .title{
+      font-weight: 820;
+      font-size: 12.5px;
+      letter-spacing:-0.01em;
+    }
+    .cross-top .desc{
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .bandrow{
+      display:grid;
+      grid-template-columns: 170px 1fr;
+      border-top: 1px solid var(--line);
+    }
+    .bandrow:first-of-type{ border-top: none; }
+
+    .bandrow .label{
+      padding: 10px 12px;
+      border-right: 1px solid var(--line);
+      background: #f8fafc;
+    }
+    .bandrow .label .name{
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing:-0.01em;
+    }
+    .bandrow .label .sub{
+      margin-top:4px;
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height:1.25;
+    }
+    .bandrow .content{
+      padding: 10px 12px;
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      align-items:start;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      font-size: 11px;
+      color: rgba(15,23,42,.85);
+      border: 1px solid rgba(203,213,225,.75);
+      background: #ffffff;
+      box-shadow: 0 1px 0 rgba(15,23,42,.03);
+      padding: 8px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    /* Outcome row */
+    .outcome{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      overflow:hidden;
+    }
+    .outcome-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,9);
+    }
+    .outcome-top .title{
+      font-weight: 820;
+      font-size: 12.5px;
+      letter-spacing:-0.01em;
+    }
+    .outcome-top .desc{
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+	
+    .obox{
+      border:1px solid var(--line2);
+      border-radius: 12px;
+      padding: 10px 10px 10px;
+      min-height: 88px;
+      background: #ffffff;
+    }
+
+    .obox.s1{ border-color: var(--b1); }
+    .obox.s2{ border-color: var(--b2); }
+    .obox.s3{ border-color: var(--b3); }
+    .obox.s4{ border-color: var(--b4); }
+    .obox.s5{ border-color: var(--b5); }
+
+    .obox h4{
+      margin:0;
+      font-size: 12.2px;
+      font-weight: 850;
+      letter-spacing:-0.01em;
+    }
+    .obox p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.3;
+    }
+	
+	/* ROI row formatting (reuses obox look) */
+	.roi .obox ul{ margin-top: 8px; }
+	.roi .obox li{ font-size: 11.8px; line-height: 1.25; }
+	.roi .obox .dot{ margin-top: 4px; }	
+	
+
+    /* Responsive */
+    @media (max-width: 1180px){
+      .cols{ grid-template-columns: 1fr; }
+      .top-strip .path{ display:none; }
+      .cross-top .desc, .outcome-top .desc{ display:none; }
+      .bandrow{ grid-template-columns: 1fr; }
+      .bandrow .label{ border-right:none; border-bottom:1px solid var(--line); }
+      .bandrow .content{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pill{ white-space: normal; }
+    }
+
+    @media print{
+      body{ background:#fff; }
+      .slide{ box-shadow:none; }
+      .slide::before{ opacity:.08; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <h1>Decision Intelligence Roadmap</h1>
+        <div class="sub">
+          Five stages from reliable data to controlled autonomy, with operating model, governance, and value management applied from day one.
+        </div>
+      </div>
+	<div class="actions">
+	  <a class="btn" href="assessment.html">Readiness Assessment >></a>
+	  <a class="btn" href="adani.html">Adani Case study >></a>
+	  <a class="btn" href="accelerator-framework.html">Accelerator Framework >></a>
+	</div>
+    </div>
+
+    <section class="slide" aria-label="Decision Intelligence Roadmap framework">
+      <div class="top-strip">
+        <div class="kicker">Progression</div>
+        <div class="path">Reliable data, certified metrics, predictive planning, optimized decisions, controlled execution</div>
+      </div>
+
+      <div class="grid">
+	  
+	<!-- STAGE 0: MATURITY ASSESSMENT (CROSS-STAGE) -->
+	<section class="stage0" aria-label="Stage 0 assessment">
+	  <div class="stage0-head">
+		<div>
+		  <h3>Stage 0: Maturity Assessment & Target State</h3>
+		  <div class="tagline">Assess current maturity, define target stage(s), and prioritize the roadmap</div>
+		</div>
+		<div class="num">0</div>
+	  </div>
+
+	  <ul>
+		<li><span class="dot"></span><span>Baseline current-state across data, KPIs, planning, decisioning, and governance</span></li>
+		<li><span class="dot"></span><span>Identify gaps, dependencies, and quick wins; define target maturity by domain</span></li>
+		<li><span class="dot"></span><span>Prioritize use cases, sequence delivery, and lock success metrics</span></li>
+	  </ul>
+
+	  <div class="stage0-grid" aria-label="Assessment spans all stages">
+		<div class="stage0-pill">Stage 1 readiness</div>
+		<div class="stage0-pill">Stage 2 KPI & semantic gaps</div>
+		<div class="stage0-pill">Stage 3 forecasting readiness</div>
+		<div class="stage0-pill">Stage 4 optimization candidates</div>
+		<div class="stage0-pill">Stage 5 autonomy guardrails</div>
+	  </div>
+	</section>	  
+
+        <!-- ROW 1: STAGES -->
+        <div class="cols" aria-label="Five stages">
+
+          <article class="stage s1">
+            <div class="stage-head">
+              <div>
+                <h3>Stage 1: Data Foundation</h3>
+                <div class="tagline">Trusted, governed data assets</div>
+              </div>
+              <div class="num">1</div>
+            </div>
+            <ul>
+              <li><span class="dot"></span><span>Define data domains, ownership, accountability</span></li>
+              <li><span class="dot"></span><span>Integrate priority systems into one architecture</span></li>
+              <li><span class="dot"></span><span>Standardize data models and master data alignment</span></li>
+              <li><span class="dot"></span><span>Set quality standards, monitoring, controls</span></li>
+              <li><span class="dot"></span><span>Establish security and access foundation</span></li>
+            </ul>
+          </article>
+
+          <article class="stage s2">
+            <div class="stage-head">
+              <div>
+                <h3>Stage 2: Standardized Intelligence</h3>
+                <div class="tagline">Consistent performance view</div>
+              </div>
+              <div class="num">2</div>
+            </div>
+            <ul>
+              <li><span class="dot"></span><span>Define standarized KPI library (EBITDA, CoP, PTPK, etc.) and metric governance</span></li>
+              <li><span class="dot"></span><span>Implement shared semantic layer with approved metric formulas</span></li>
+              <li><span class="dot"></span><span>Enable governed self-service analytics on trusted KPIs</span></li>
+              <li><span class="dot"></span><span>Set reporting lifecycle, data standards and metric controls</span></li>
+              <li><span class="dot"></span><span>Track adoption and KPI usage across business units</span></li>
+            </ul>
+          </article>
+
+          <article class="stage s3">
+            <div class="stage-head">
+              <div>
+                <h3>Stage 3: Predictive Planning</h3>
+                <div class="tagline">Foresight built into planning</div>
+              </div>
+              <div class="num">3</div>
+            </div>
+            <ul>
+              <li><span class="dot"></span><span>Prioritize predictive use cases aligned to strategic KPIs</span></li>
+              <li><span class="dot"></span><span>Develop and validate forecasting models for key metrics</span></li>
+              <li><span class="dot"></span><span>Integrate KPI forecasts into planning and operations</span></li>
+              <li><span class="dot"></span><span>Establish model lifecycle oversight and performance review</span></li>
+              <li><span class="dot"></span><span>Monitor forecast accuracy and impact vs actual results</span></li>
+            </ul>
+          </article>
+
+          <article class="stage s4">
+            <div class="stage-head">
+              <div>
+                <h3>Stage 4: Prescriptive Decisions</h3>
+                <div class="tagline">Optimization and decision automation</div>
+              </div>
+              <div class="num">4</div>
+            </div>
+            <ul>
+              <li><span class="dot"></span><span>Select high-value decisions for optimization</span></li>
+              <li><span class="dot"></span><span>Embed business constraints and policy rules</span></li>
+              <li><span class="dot"></span><span>Deploy prescriptive engines (optimization, simulation)</span></li>
+              <li><span class="dot"></span><span>Integrate recommendations into workflows</span></li>
+              <li><span class="dot"></span><span>Measure realized savings and margin lift</span></li>
+            </ul>
+          </article>
+
+          <article class="stage s5">
+            <div class="stage-head">
+              <div>
+                <h3>Stage 5: Controlled Autonomy</h3>
+                <div class="tagline">Execute with guardrails</div>
+              </div>
+              <div class="num">5</div>
+            </div>
+            <ul>
+              <li><span class="dot"></span><span>Define autonomy boundaries and escalation paths</span></li>
+              <li><span class="dot"></span><span>Implement human-in-the-loop oversight</span></li>
+              <li><span class="dot"></span><span>Automate actions for low-risk decisions</span></li>
+              <li><span class="dot"></span><span>Continuously monitor drift, bias, and compliance</span></li>
+              <li><span class="dot"></span><span>Scale autonomy across functions responsibly</span></li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- ROW 2: CROSS-CUTTING CAPABILITIES -->
+        <section class="cross" aria-label="Cross-cutting capabilities">
+          <div class="cross-top">
+            <div class="title">Cross-cutting capabilities applied from day one</div>
+            <div class="desc">Operating model, governance, and value management across all stages</div>
+          </div>
+
+          <div class="bandrow">
+            <div class="label">
+              <div class="name">Operating model</div>
+              <div class="sub">Teams, roles, delivery rhythm</div>
+            </div>
+            <div class="content">
+              <span class="pill">Domain ownership</span>
+              <span class="pill">Center of excellence</span>
+              <span class="pill">Enablement</span>
+              <span class="pill">Change adoption</span>
+            </div>
+          </div>
+
+          <div class="bandrow">
+            <div class="label">
+              <div class="name">Governance and risk</div>
+              <div class="sub">Controls, compliance, auditability</div>
+            </div>
+            <div class="content">
+              <span class="pill">Access controls</span>
+              <span class="pill">Privacy and compliance</span>
+              <span class="pill">Policy rules</span>
+              <span class="pill">Audit logs</span>
+            </div>
+          </div>
+
+          <div class="bandrow">
+            <div class="label">
+              <div class="name">Value realization</div>
+              <div class="sub">Use case funnel, benefits tracking</div>
+            </div>
+            <div class="content">
+              <span class="pill">Business case</span>
+              <span class="pill">Baseline and target KPIs (EBITDA, CoP, PTPK)</span>
+              <span class="pill">Benefits tracking</span>
+              <span class="pill">Adoption metrics</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ROW 3: OUTCOMES -->
+        <section class="outcome" aria-label="Outcomes by stage">
+          <div class="outcome-top">
+            <div class="title">Outcomes by stage</div>
+            <div class="desc">Executive-level outcomes as maturity increases</div>
+          </div>
+
+          <div class="cols" style="padding: 10px;">
+            <div class="obox s1">
+              <h4>Enterprise-grade Trusted <br/>Data Foundation</h4>
+              <p>Reduced reporting friction and stronger decision confidence</p>
+            </div>
+
+            <div class="obox s2">
+              <h4>Unified and Standardized<br/>Performance Management</h4>
+              <p>Faster alignment across leadership and business units</p>
+            </div>
+
+            <div class="obox s3">
+              <h4>Forecast-driven<br/>Planning Discipline</h4>
+              <p>Improved predictability and reduced operational volatility</p>
+            </div>
+
+            <div class="obox s4">
+              <h4>Optimized Decisions<br/>Across Priority Processes</h4>
+              <p>Improved margins, cost efficiency, and capital allocation</p>
+            </div>
+
+            <div class="obox s5">
+              <h4>Controlled Autonomy<br/>With Embedded Oversight</h4>
+              <p>Exception-based management with lower operational overhead</p>
+            </div>
+          </div>
+        </section>
+		
+		<!-- ROI BY STAGE -->
+		<section class="outcome roi" aria-label="ROI by stage">
+		  <div class="outcome-top">
+			<div class="title">ROI / Business value by stage</div>
+			<div class="desc">Executive outcomes expressed in business impact</div>
+		  </div>
+
+		  <div class="cols" style="padding: 10px;">
+			<div class="obox s1">
+			  <h4>Stage 1 ROI</h4>
+			  <ul>
+				<li><span class="dot"></span><span>Reduce reporting effort and cycle time through trusted data availability</span></li>
+				<li><span class="dot"></span><span>Lower risk exposure via standardized controls, access, and auditability</span></li>
+				<li><span class="dot"></span><span>Faster time-to-value for every downstream use case</span></li>
+			  </ul>
+			</div>
+
+			<div class="obox s2">
+			  <h4>Stage 2 ROI</h4>
+			  <ul>
+				<li><span class="dot"></span><span>Faster decisions through a single “certified KPI” view of performance</span></li>
+				<li><span class="dot"></span><span>Reduce metric disputes and rework; improve accountability</span></li>
+				<li><span class="dot"></span><span>Self-service analytics at scale to lower BI/ops dependency cost</span></li>
+			  </ul>
+			</div>
+
+			<div class="obox s3">
+			  <h4>Stage 3 ROI</h4>
+			  <ul>
+				<li><span class="dot"></span><span>Improve forecast accuracy - better S&OP, fewer surprises</span></li>
+				<li><span class="dot"></span><span>Working capital benefits via inventory and capacity alignment</span></li>
+				<li><span class="dot"></span><span>Revenue and margin protection through early risk detection</span></li>
+			  </ul>
+			</div>
+
+			<div class="obox s4">
+			  <h4>Stage 4 ROI</h4>
+			  <ul>
+				<li><span class="dot"></span><span>Direct cost reduction through optimization (logistics, procurement, ops)</span></li>
+				<li><span class="dot"></span><span>Margin lift from better allocation, mix, and constraint-aware decisions</span></li>
+				<li><span class="dot"></span><span>Faster cycle time from decision recommendations embedded in workflows</span></li>
+			  </ul>
+			</div>
+
+			<div class="obox s5">
+			  <h4>Stage 5 ROI</h4>
+			  <ul>
+				<li><span class="dot"></span><span>Exception-based management to reduced operational overhead</span></li>
+				<li><span class="dot"></span><span>Higher throughput and responsiveness via controlled automation</span></li>
+				<li><span class="dot"></span><span>Lower risk with guardrails, traceability, and human oversight</span></li>
+			  </ul>
+			</div>
+		  </div>
+		</section>
+
+      </div>
+    </section>
+  </div>
+</body>
+</html>

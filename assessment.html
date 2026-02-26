@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Assessment & Readiness - Decision Intelligence Roadmap</title>
+  <style>
+    :root{
+      --ink:#0f172a;
+      --muted:#475569;
+      --muted2:#64748b;
+
+      --line:#e2e8f0;
+      --line2:#cbd5e1;
+
+      --p0:#ffffff;
+      --p1:#E8F4FD;
+      --p2:#EAF7F0;
+      --p3:#FFF5E6;
+      --p4:#F2ECFF;
+      --p5:#FDECF1;
+
+      --b0:#94a3b8;
+      --b1:#60a5fa;
+      --b2:#34d399;
+      --b3:#fbbf24;
+      --b4:#a78bfa;
+      --b5:#fb7185;
+
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      background:#f8fafc;
+      font-family: var(--sans);
+      color: var(--ink);
+    }
+    .wrap{
+      max-width: 1320px;
+      margin: 18px auto 28px;
+      padding: 0 14px;
+    }
+
+    .header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom: 10px;
+    }
+    h1{
+      margin:0;
+      font-size: 22px;
+      letter-spacing:-0.02em;
+    }
+    .sub{
+      margin-top: 6px;
+      max-width: 980px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink);
+      text-decoration:none;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      padding: 7px 10px;
+      border-radius: 999px;
+      box-shadow: 0 1px 0 rgba(15,23,42,.03);
+      white-space: nowrap;
+    }
+    .btn:hover{
+      border-color: var(--line2);
+      transform: translateY(-1px);
+    }
+    .chip{
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted2);
+      border: 1px solid var(--line);
+      background:#fff;
+      padding: 7px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .slide{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      overflow:hidden;
+      position: relative;
+    }
+    .slide::before{
+      content:"";
+      position:absolute;
+      inset:-80px -120px auto auto;
+      width: 360px;
+      height: 360px;
+      background: radial-gradient(circle at 30% 30%, rgba(96,165,250,.28), rgba(167,139,250,.20), rgba(251,191,36,.14), transparent 70%);
+      opacity: .65;
+      pointer-events:none;
+    }
+
+    .top-strip{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:space-between;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(248,250,252,.85), rgba(255,255,255,.9));
+    }
+    .kicker{
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted2);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+    .path{
+      font-size: 12px;
+      color: var(--muted);
+      text-align:right;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      max-width: 980px;
+    }
+
+    .grid{
+      display:grid;
+      gap: 12px;
+      padding: 12px;
+    }
+
+    /* Common list style */
+    ul{
+      list-style:none;
+      padding:0;
+      margin: 6px 0 0;
+      display:flex;
+      flex-direction:column;
+      gap: 7px;
+    }
+    li{
+      display:flex;
+      gap: 8px;
+      align-items:flex-start;
+      font-size: 12px;
+      color: rgba(15,23,42,.92);
+      line-height: 1.25;
+    }
+    .dot{
+      width: 7px; height:7px;
+      border-radius: 999px;
+      margin-top: 4px;
+      flex: 0 0 auto;
+      background: rgba(15,23,42,.45);
+      box-shadow: 0 0 0 3px rgba(255,255,255,.5);
+    }
+
+    /* Stage 0 band */
+    .stage0{
+      border-radius: 14px;
+      border: 1px dashed rgba(15,23,42,.25);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(248,250,252,.92));
+      padding: 10px 12px;
+      position: relative;
+      overflow:hidden;
+    }
+    .stage0::before{
+      content:"";
+      position:absolute;
+      inset:-60px auto auto -60px;
+      width: 240px;
+      height: 240px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 35% 35%, rgba(96,165,250,.16), rgba(52,211,153,.12), rgba(251,191,36,.10), transparent 70%);
+      pointer-events:none;
+    }
+    .stage0-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 6px;
+    }
+    .stage0 h3{
+      margin:0;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing:-0.01em;
+      line-height:1.2;
+    }
+    .stage0 .tagline{
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height:1.2;
+    }
+    .num{
+      min-width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 900;
+      background: rgba(15,23,42,.06);
+      border: 1px solid rgba(15,23,42,.12);
+      color: rgba(15,23,42,.85);
+      flex: 0 0 auto;
+    }
+
+    .stage0-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .card{
+      border:1px solid rgba(203,213,225,.85);
+      border-radius: 12px;
+      padding: 10px;
+      background: rgba(255,255,255,.86);
+    }
+    .card h4{
+      margin:0;
+      font-size: 12.2px;
+      font-weight: 900;
+      letter-spacing:-0.01em;
+    }
+    .card p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(203,213,225,.85);
+      background: rgba(255,255,255,.92);
+      font-size: 11.3px;
+      color: rgba(15,23,42,.85);
+      white-space: nowrap;
+    }
+
+    /* Five stage gates */
+    .cols{
+      display:grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .stage{
+      border-radius: 14px;
+      border: 1px solid var(--line2);
+      padding: 10px 10px 10px;
+      position: relative;
+      min-height: 280px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .stage.s1{ background: var(--p1); border-color: rgba(96,165,250,.55); }
+    .stage.s2{ background: var(--p2); border-color: rgba(52,211,153,.55); }
+    .stage.s3{ background: var(--p3); border-color: rgba(251,191,36,.60); }
+    .stage.s4{ background: var(--p4); border-color: rgba(167,139,250,.55); }
+    .stage.s5{ background: var(--p5); border-color: rgba(251,113,133,.55); }
+
+    .stage-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 6px;
+    }
+    .stage h3{
+      margin:0;
+      font-size: 12.8px;
+      font-weight: 900;
+      letter-spacing:-0.01em;
+      line-height:1.2;
+    }
+    .tagline{
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height:1.2;
+    }
+    .stage .num{
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(15,23,42,.12);
+    }
+
+    .minihead{
+      margin-top: 8px;
+      font-family: var(--mono);
+      font-size: 10.8px;
+      color: var(--muted2);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    /* Cross-cutting gates section */
+    .section{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius: 14px;
+      overflow:hidden;
+    }
+    .section-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,9);
+    }
+    .section-top .title{
+      font-weight: 900;
+      font-size: 12.5px;
+      letter-spacing:-0.01em;
+    }
+    .section-top .desc{
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .section-body{ padding: 12px; }
+
+    .bandrow{
+      display:grid;
+      grid-template-columns: 210px 1fr;
+      border-top: 1px solid var(--line);
+    }
+    .bandrow:first-of-type{ border-top: none; }
+    .bandrow .label{
+      padding: 10px 12px;
+      border-right: 1px solid var(--line);
+      background: #f8fafc;
+    }
+    .bandrow .label .name{
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing:-0.01em;
+    }
+    .bandrow .label .sub{
+      margin-top:4px;
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height:1.25;
+    }
+    .bandrow .content{
+      padding: 10px 12px;
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      align-items:start;
+    }
+    .ibox{
+      border:1px solid rgba(203,213,225,.85);
+      background:#fff;
+      border-radius: 12px;
+      padding: 10px;
+      min-height: 74px;
+    }
+    .ibox h4{
+      margin:0;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing:-0.01em;
+    }
+    .ibox p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 11.8px;
+      line-height: 1.3;
+    }
+
+    .note{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 11.5px;
+      line-height: 1.35;
+    }
+
+    @media (max-width: 1180px){
+      .top-strip .path{ display:none; }
+      .stage0-grid{ grid-template-columns: 1fr; }
+      .cols{ grid-template-columns: 1fr; }
+      .stage{ min-height: auto; }
+      .section-top .desc{ display:none; }
+      .bandrow{ grid-template-columns: 1fr; }
+      .bandrow .label{ border-right:none; border-bottom:1px solid var(--line); }
+      .bandrow .content{ grid-template-columns: 1fr; }
+      .pill{ white-space: normal; }
+    }
+
+    @media print{
+      body{ background:#fff; }
+      .slide{ box-shadow:none; }
+      .slide::before{ opacity:.08; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <h1>Assessment & Readiness Framework</h1>
+        <div class="sub">
+          Clients may <b>target any stage</b> (even Stage 5), but they can only <b>enter</b> that stage if its <b>entry criteria</b> are met.
+          This framework shows what is checked and what must already exist without prescribing delivery templates or methods.
+        </div>
+      </div>
+      <div class="actions">
+        <a class="btn" href="index.html">← Back to roadmap</a>
+        <a class="btn" href="adani.html">Case study: Adani >></a>
+        <div class="chip">Stage gates</div>
+      </div>
+    </div>
+
+    <section class="slide" aria-label="Assessment framework">
+      <div class="top-strip">
+        <div class="kicker">Stage 0 to Stage gates</div>
+        <div class="path">Baseline maturity -> pick target stage -> validate readiness -> identify gaps -> define minimum bridge to safely start</div>
+      </div>
+
+      <div class="grid">
+
+        <!-- STAGE 0 -->
+        <section class="stage0" aria-label="Stage 0 overview">
+          <div class="stage0-head">
+            <div>
+              <h3>Stage 0: Maturity Assessment & Target State</h3>
+              <div class="tagline">Determine where you are today, where you want to be, and what must be true to start there</div>
+            </div>
+            <div class="num">0</div>
+          </div>
+
+          <div class="stage0-grid">
+            <div class="card">
+              <h4>What is assessed</h4>
+              <p>Readiness is evaluated across data, metrics, planning, decision automation, and governance so the target stage is achievable and safe.</p>
+              <div class="pillrow">
+                <span class="pill">Data Architecture</span>
+                <span class="pill">Standarized KPIs</span>
+                <span class="pill">Planning Integration</span>
+                <span class="pill">Decision Logic</span>
+                <span class="pill">Governance & Risk</span>
+                <span class="pill">Operating Model</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h4>Outputs (what will be produced)</h4>
+              <ul>
+                <li><span class="dot"></span><span>Current maturity snapshot (by domain/function)</span></li>
+                <li><span class="dot"></span><span>Target stage selection and rationale</span></li>
+                <li><span class="dot"></span><span>Readiness against target stage entry criteria</span></li>
+                <li><span class="dot"></span><span>Gap list + dependency risks</span></li>
+                <li><span class="dot"></span><span>Minimum bridge needed to safely start the target stage</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="note">
+            Key principle: “Target any stage” is allowed. “Start at any stage” depends on passing the stage gate.
+          </div>
+        </section>
+
+        <!-- STAGE GATES -->
+        <div class="cols" aria-label="Stage entry gates">
+
+          <article class="stage s1">
+            <div class="stage-head">
+              <div>
+                <h3>Stage 1 gate</h3>
+                <div class="tagline"><b>Outcome:</b> Enterprise-grade Trusted <br/>Data Foundation</div>
+              </div>
+              <div class="num">1</div>
+            </div>
+
+            <div class="minihead">Entry criteria</div>
+            <ul>
+              <li><span class="dot"></span><span>Priority sources identified and accessible</span></li>
+              <li><span class="dot"></span><span>Target architecture agreed (lake/warehouse/lakehouse)</span></li>
+              <li><span class="dot"></span><span>Data quality controls and stewardship defined</span></li>
+              <li><span class="dot"></span><span>Security and access model established</span></li>
+              <li><span class="dot"></span><span>Domain ownership and accountability set</span></li>
+            </ul>
+          </article>
+
+          <article class="stage s2">
+            <div class="stage-head">
+              <div>
+                <h3>Stage 2 gate</h3>
+                <div class="tagline"><b>Outcome:</b> Unified and Standardized<br/>Performance Management</div>
+              </div>
+              <div class="num">2</div>
+            </div>
+
+            <div class="minihead">Entry criteria</div>
+            <ul>
+              <li><span class="dot"></span><span>Stage 1 trusted data foundation available</span></li>
+              <li><span class="dot"></span><span>Standarized KPI library (definitions + formulas + grain)</span></li>
+              <li><span class="dot"></span><span>Semantic layer / metrics governance in place</span></li>
+              <li><span class="dot"></span><span>Reporting standards and lifecycle controls defined</span></li>
+              <li><span class="dot"></span><span>Adoption model for self-service is governed</span></li>
+            </ul>
+          </article>
+
+          <article class="stage s3">
+            <div class="stage-head">
+              <div>
+                <h3>Stage 3 gate</h3>
+                <div class="tagline"><b>Outcome:</b> Forecast-driven<br/>Planning Discipline</div>
+              </div>
+              <div class="num">3</div>
+            </div>
+
+            <div class="minihead">Entry criteria</div>
+            <ul>
+              <li><span class="dot"></span><span>Stage 2 Standarized KPIs and consistent history</span></li>
+              <li><span class="dot"></span><span>Sufficient historical depth + stable drivers</span></li>
+              <li><span class="dot"></span><span>Curated features and validation data available</span></li>
+              <li><span class="dot"></span><span>Monitoring requirements defined (accuracy/drift)</span></li>
+              <li><span class="dot"></span><span>Planning touchpoints identified for integration</span></li>
+            </ul>
+          </article>
+
+          <article class="stage s4">
+            <div class="stage-head">
+              <div>
+                <h3>Stage 4 gate</h3>
+                <div class="tagline"><b>Outcome:</b> Optimized Decisions<br/>Across Priority Processes</div>
+              </div>
+              <div class="num">4</div>
+            </div>
+
+            <div class="minihead">Entry criteria</div>
+            <ul>
+              <li><span class="dot"></span><span>Decision catalog prioritized (where optimization helps)</span></li>
+              <li><span class="dot"></span><span>Constraints & policy rules explicitly defined</span></li>
+              <li><span class="dot"></span><span>Objective functions & trade-offs agreed</span></li>
+              <li><span class="dot"></span><span>Workflow integration points are identified</span></li>
+              <li><span class="dot"></span><span>Benefits measurement method is defined</span></li>
+            </ul>
+          </article>
+
+          <article class="stage s5">
+            <div class="stage-head">
+              <div>
+                <h3>Stage 5 gate</h3>
+                <div class="tagline"><b>Outcome:</b> Controlled Autonomy<br/>With Embedded Oversight</div>
+              </div>
+              <div class="num">5</div>
+            </div>
+
+            <div class="minihead">Entry criteria</div>
+            <ul>
+              <li><span class="dot"></span><span>Stage 4 decision logic is proven and stable</span></li>
+              <li><span class="dot"></span><span>Autonomy boundaries + escalation paths defined</span></li>
+              <li><span class="dot"></span><span>Human-in-the-loop oversight model established</span></li>
+              <li><span class="dot"></span><span>Auditability: logs, lineage, traceability requirements</span></li>
+              <li><span class="dot"></span><span>Risk controls: drift, compliance, safety monitoring</span></li>
+            </ul>
+          </article>
+
+        </div>
+
+        <!-- CROSS-CUTTING READINESS (ALIGNS TO INDEX) -->
+        <section class="section" aria-label="Cross-cutting readiness gates">
+          <div class="section-top">
+            <div class="title">Cross-cutting readiness</div>
+            <div class="desc">Required to scale reliably across all stages</div>
+          </div>
+          <div class="section-body" style="padding:0;">
+
+            <div class="bandrow">
+              <div class="label">
+                <div class="name">Operating model</div>
+                <div class="sub">Teams, roles, delivery rhythm</div>
+              </div>
+              <div class="content">
+                <div class="ibox">
+                  <h4>Ownership</h4>
+                  <p>Clear domain and metric ownership, with decision rights.</p>
+                </div>
+                <div class="ibox">
+                  <h4>Enablement</h4>
+                  <p>Defined approach for adoption and capability building.</p>
+                </div>
+                <div class="ibox">
+                  <h4>Run model</h4>
+                  <p>Support, incident handling, and lifecycle responsibilities.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bandrow">
+              <div class="label">
+                <div class="name">Governance and risk</div>
+                <div class="sub">Controls, compliance, auditability</div>
+              </div>
+              <div class="content">
+                <div class="ibox">
+                  <h4>Access</h4>
+                  <p>Role-based access, privacy and compliance expectations.</p>
+                </div>
+                <div class="ibox">
+                  <h4>Policy</h4>
+                  <p>Documented policies for metrics, models, and decisions.</p>
+                </div>
+                <div class="ibox">
+                  <h4>Audit</h4>
+                  <p>Audit logs and traceability requirements defined early.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bandrow">
+              <div class="label">
+                <div class="name">Value realization</div>
+                <div class="sub">Use cases, benefits tracking</div>
+              </div>
+              <div class="content">
+                <div class="ibox">
+                  <h4>Use cases</h4>
+                  <p>Prioritized use cases tied to business outcomes.</p>
+                </div>
+                <div class="ibox">
+                  <h4>KPIs</h4>
+                  <p>Baseline and target KPIs aligned to stage outcomes.</p>
+                </div>
+                <div class="ibox">
+                  <h4>Measurement</h4>
+                  <p>Benefits tracking defined (adoption, accuracy, savings).</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <div class="note">
+          Note: If a client “wants Stage 5,” Stage 0 validates Stage 5 entry criteria. If gaps exist, the output is the <b>minimum bridge</b>
+          (often selective Stage 2 metric certification + Stage 4 decision policy) required to safely operate autonomy.
+        </div>
+
+      </div>
+    </section>
+  </div>
+</body>
+</html>
